@@ -8,6 +8,9 @@ module.exports = {
     const { user } = member;
     if (user.bot) return;
 
+    // Allow temporarily disabling auto-role assignment via env var
+    const AUTO_ROLE_DISABLED = process.env.DISABLE_AUTO_ROLE === '1';
+
     if (blacklist.includes(user.id)) {
       try {
         await member.ban({ reason: 'Blacklist automatique — accès interdit.' });
@@ -37,6 +40,11 @@ module.exports = {
         logToChannel(`⚠️ Rôle auto introuvable dans la guilde: ${autoRoleId}`, 'Erreur rôle', 'error', client);
         return;
       }
+    }
+
+    // If auto-role is disabled (temporary), skip adding the role
+    if (AUTO_ROLE_DISABLED) {
+      return;
     }
 
     try {
