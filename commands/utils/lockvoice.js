@@ -1,4 +1,4 @@
-// 📁 commands/utils/lockvoice.js
+
 const { PermissionsBitField } = require('discord.js');
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const {
@@ -42,7 +42,7 @@ module.exports = {
       const member = interaction.member;
       const voiceChannel = member.voice?.channel;
 
-      // Vérification des permissions
+
       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)) {
         return interaction.reply({ content: '❌ Tu n’as pas les permissions nécessaires pour gérer les salons vocaux.', flags: 64 });
       }
@@ -116,7 +116,7 @@ module.exports = {
             const allowedList = [...allowed].map(id => `<@${id}>`).join(', ') || 'Aucun';
             embed.addFields({ name: `${channel.name}`, value: allowedList });
 
-            // Limiter à 25 champs pour éviter les erreurs d'embed
+
             if (embed.data.fields.length >= 25) {
               break;
             }

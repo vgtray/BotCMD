@@ -63,7 +63,7 @@ module.exports = {
     await interaction.showModal(modal);
   },
 
-  // Gestion de la soumission du modal
+
   async modalSubmit(interaction) {
     if (interaction.customId !== 'say') return;
 
@@ -75,7 +75,7 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setDescription(message)
-      .setColor('#007eca'); // couleur forcée ici
+      .setColor('#007eca');
 
     if (title) embed.setTitle(title);
 

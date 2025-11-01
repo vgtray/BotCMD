@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const blacklistFile = path.join(__dirname, '../data/blacklist.json'); // si dans services/
+const blacklistFile = path.join(__dirname, '../data/blacklist.json');
 
 
 let blacklist = [];

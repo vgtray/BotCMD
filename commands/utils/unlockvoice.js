@@ -18,7 +18,7 @@ module.exports = {
       return interaction.reply({ content: '🔓 Ce salon n\'est pas verrouillé.', flags: 64 });
     }
 
-    unlockChannel(voiceChannel.id); // Juste retirer du suivi
+    unlockChannel(voiceChannel.id);
     await interaction.reply({ content: `🔓 Salon **${voiceChannel.name}** déverrouillé.`, flags: 64 });
   }
 };

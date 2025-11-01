@@ -3,12 +3,12 @@ const fs = require('fs');
 const path = require('path');
 const { token, clientId } = require('./config/config');
 
-// ← Remplace ici par les guilds où tu veux supprimer les commandes spécifiques
-const guildIds = ['1318679153137942609']; // à adapter
+
+const guildIds = ['1318679153137942609'];
 
 const commands = [];
 
-// Charger toutes les commandes dans /commands/**/
+
 const commandFolders = fs.readdirSync(path.join(__dirname, 'commands'));
 for (const folder of commandFolders) {
   const folderPath = path.join(__dirname, 'commands', folder);
@@ -26,19 +26,19 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {
   try {
-    // 🧹 Supprimer les commandes GUILD
+
     for (const guildId of guildIds) {
       console.log(`🧹 Suppression des commandes GUILD pour la guild ${guildId}...`);
       await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] });
       console.log(`✅ Commandes guild supprimées pour ${guildId}.`);
     }
 
-    // 🧹 Supprimer les commandes GLOBAL
+
     console.log('🧹 Suppression de TOUTES les commandes GLOBAL...');
     await rest.put(Routes.applicationCommands(clientId), { body: [] });
     console.log('✅ Anciennes commandes globales supprimées.');
 
-    // 🚀 Déploiement GLOBAL
+
     console.log('🚀 Déploiement des commandes globales...');
     await rest.put(Routes.applicationCommands(clientId), { body: commands });
     console.log('✅ Nouvelles commandes globales déployées avec succès !');

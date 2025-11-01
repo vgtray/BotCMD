@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = function loadCommands(client) {
-  const basePath = path.join(__dirname, '../commands'); // Dossier contenant les commandes
+  const basePath = path.join(__dirname, '../commands');
 
   function load(dir) {
     const files = fs.readdirSync(dir);
@@ -11,18 +11,18 @@ module.exports = function loadCommands(client) {
       const stat = fs.statSync(filepath);
 
       if (stat.isDirectory()) {
-        load(filepath);  // Si c'est un sous-dossier, appelle récursivement la fonction
+        load(filepath);
       } else if (file.endsWith('.js')) {
-        const command = require(filepath);  // Charge la commande
+        const command = require(filepath);
         if (!command.data || !command.execute) {
           console.warn(`⚠️ Commande ignorée (invalide) : ${file}`);
           continue;
         }
-        client.commands.set(command.data.name, command); // Ajoute la commande à la collection
-        console.log(`✅ Commande /${command.data.name} chargée`);  // Log pour chaque commande chargée
+        client.commands.set(command.data.name, command);
+        console.log(`✅ Commande /${command.data.name} chargée`);
       }
     }
   }
 
-  load(basePath);  // Lance la fonction de chargement des commandes
+  load(basePath);
 };

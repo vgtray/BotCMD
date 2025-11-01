@@ -9,7 +9,7 @@ const {
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction, client) {
-    // ✅ Slash command
+
     if (interaction.isCommand()) {
       const { commandName } = interaction;
       const command = client.commands.get(commandName);
@@ -20,7 +20,7 @@ module.exports = {
       } catch (error) {
         console.error('❌ Erreur lors de l\'exécution de la commande :', error);
         
-        // Vérifier si l'interaction n'a pas déjà été répondue
+
         if (!interaction.replied && !interaction.deferred) {
           await interaction.reply({
             content: '❌ Une erreur est survenue lors de l\'exécution de la commande.',
@@ -32,11 +32,11 @@ module.exports = {
       }
     }
 
-    // ✅ Bouton
+
     if (interaction.isButton()) {
       const customId = interaction.customId;
 
-      // Attribution de rôle
+
       if (customId.startsWith('assignRole_')) {
         const roleId = customId.split('_')[1];
 
@@ -64,7 +64,7 @@ module.exports = {
         }
       }
 
-      // Création de ticket
+
       if (customId === 'create_ticket') {
         try {
           const category = interaction.values[0];
@@ -139,7 +139,7 @@ module.exports = {
       }
     }
 
-    // ✅ Modal : /say
+
     if (interaction.isModalSubmit() && interaction.customId === 'say') {
       const title = interaction.fields.getTextInputValue('title_input');
       const message = interaction.fields.getTextInputValue('message_input');
@@ -156,7 +156,7 @@ module.exports = {
       }
 
       const embed = new EmbedBuilder()
-        .setColor('#007eca') // ✅ couleur mise à jour
+        .setColor('#007eca')
         .setDescription(message)
         .setFooter({ text: interaction.guild.name })
         .setTimestamp();

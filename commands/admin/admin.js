@@ -1,4 +1,4 @@
-// 📁 Fichier : commands/admin/admin.js
+
 const { SlashCommandBuilder } = require('discord.js');
 const { isOwner, getAdmins, addAdmin, removeAdmin } = require('../../utils/authorization');
 

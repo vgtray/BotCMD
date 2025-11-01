@@ -12,33 +12,33 @@ module.exports = {
     const target = interaction.options.getUser('target');
     const reason = interaction.options.getString('reason');
     
-    // Vérifier si l'utilisateur est un administrateur du bot ou le propriétaire du bot
+
     if (!isAuthorized(interaction.user.id) && !isOwner(interaction.user.id)) {
       return interaction.reply("❌ Vous n'êtes pas autorisé à utiliser cette commande.");
     }
 
-    // Vérifier si le rôle Mute existe, sinon le créer
+
     let muteRole = interaction.guild.roles.cache.find(role => role.name === 'Muted');
     if (!muteRole) {
       try {
         const createdRole = await interaction.guild.roles.create({
           name: 'Muted',
-          color: '#808080', // Utilisation d'un code hexadécimal valide pour la couleur gris
-          permissions: [], // Aucun droit par défaut
+          color: '#808080',
+          permissions: [],
         });
 
-        // Appliquer les permissions de Mute sur tous les salons textuels et vocaux
+
         interaction.guild.channels.cache.forEach(async (channel) => {
           if (channel.isText() || channel.isVoice()) {
             await channel.permissionOverwrites.edit(createdRole, {
-              SEND_MESSAGES: false,  // Empêche l'envoi de messages
-              SPEAK: false,          // Empêche de parler en vocal
-              ADD_REACTIONS: false,  // Empêche d'ajouter des réactions
+              SEND_MESSAGES: false,
+              SPEAK: false,
+              ADD_REACTIONS: false,
             });
           }
         });
 
-        // Mettre à jour la variable muteRole pour le rôle créé
+
         muteRole = createdRole;
       } catch (err) {
         console.error("❌ Erreur lors de la création du rôle Mute :", err);
@@ -47,24 +47,24 @@ module.exports = {
     }
 
     try {
-      // Ajouter le rôle Mute à l'utilisateur
+
       const member = interaction.guild.members.cache.get(target.id);
       await member.roles.add(muteRole);
       await logSanction(target.id, interaction.user.id, 'mute', reason);
 
-      // Créer l'Embed de confirmation
+
       const muteEmbed = new EmbedBuilder()
         .setColor('#808080')
         .setTitle('Mute')
-        .setDescription(`✅ **<@${target.id}>** a été **mute**.`) // Mention de l'utilisateur
+        .setDescription(`✅ **<@${target.id}>** a été **mute**.`)
         .addFields(
           { name: 'Raison', value: reason, inline: true },
-          { name: 'Administrateur', value: `<@${interaction.user.id}>`, inline: true }, // Mention de l'admin
+          { name: 'Administrateur', value: `<@${interaction.user.id}>`, inline: true },
         )
         .setTimestamp()
         .setFooter({ text: 'Moderia Bot - Système de gestion des sanctions' });
 
-      // Répondre avec l'Embed
+
       interaction.reply({ embeds: [muteEmbed] });
 
     } catch (err) {

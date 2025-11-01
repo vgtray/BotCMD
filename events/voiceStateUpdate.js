@@ -6,7 +6,7 @@ const {
   unlockChannel
 } = require('../services/lockedChannels');
 const { EmbedBuilder } = require('discord.js');
-const { logsChannelId, owners } = require('../config/config'); // Ajout de `owners`
+const { logsChannelId, owners } = require('../config/config');
 
 module.exports = {
   name: 'voiceStateUpdate',
@@ -18,27 +18,27 @@ module.exports = {
 
     if (!member) return;
 
-    // Cas : un membre quitte un channel locké
+
     if (oldChannel && isLocked(oldChannel.id)) {
-      // Si plus personne dedans, on déverrouille
+
       if (oldChannel.members.size === 0) {
         unlockChannel(oldChannel.id);
         console.log(`🔓 Salon unlock auto : ${oldChannel.name}`);
       }
     }
 
-    if (!newChannel) return; // Si le membre n'a pas rejoint d'autre channel, on stop
+    if (!newChannel) return;
 
-    // Sauvegarde du salon précédent
+
     if (oldChannel && !newChannel) {
       savePreviousChannel(member.id, oldChannel.id);
     }
 
-    // Cas : quelqu'un essaye de join un salon locké
+
     if (isLocked(newChannel.id)) {
       const allowed = getAllowedMembers(newChannel.id);
 
-      // Bypass pour les Owners
+
       if (owners.includes(member.id)) {
         console.log(`✅ Owner ${member.user.tag} a bypassé le lock du salon ${newChannel.name}`);
         return;

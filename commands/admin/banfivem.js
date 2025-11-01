@@ -19,15 +19,15 @@ module.exports = {
         const reason = interaction.options.getString('raison') || "Aucune raison";
 
         const rcon = new Rcon({
-            host: "89.213.131.163",       // IP publique de ton serveur FiveM
-            port: 30136,                  // Port RCon (par défaut = 30120, à vérifier dans ton cfg)
+            host: "89.213.131.163",
+            port: 30136,
             password: "rootmoderia"
         });
 
         try {
             await rcon.connect();
 
-            // Exemple de commande (selon ce que txAdmin ou tes scripts acceptent)
+
             const command = `ban ${id} ${reason}`;
             const response = await rcon.send(command);
 

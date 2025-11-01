@@ -12,8 +12,8 @@ module.exports = {
           { name: 'générales', value: 'general' },
           { name: 'utilitaires', value: 'util' },
           { name: 'administration', value: 'admin' },
-       //   { name: 'tickets', value: 'tickets' },  // Ajout de tickets
-          { name: 'logs', value: 'logs' }        // Ajout de logs
+
+          { name: 'logs', value: 'logs' }
         )
     ),
   async execute(interaction) {
@@ -36,8 +36,8 @@ module.exports = {
           embed.addFields({ name: "🔒 Administration", value: "`/admin`, `/blacklist`, `/restartbot`,`/banfivem`" });
         }
 
-        //embed.addFields({ name: "🎫 Tickets", value: "`/ticket`, `/close`, `/reopen`" });
-        embed.addFields({ name: "📋 Logs", value: "`/logs`" });  // Nouvelle section Logs
+
+        embed.addFields({ name: "📋 Logs", value: "`/logs`" });
       }
 
       else if (category === 'general') {

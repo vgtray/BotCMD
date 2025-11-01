@@ -10,7 +10,7 @@ module.exports = {
   async execute(interaction) {
     const target = interaction.options.getUser('target');
     
-    // Vérifier si l'utilisateur est un administrateur du bot ou le propriétaire du bot
+
     if (!isAuthorized(interaction.user.id) && !isOwner(interaction.user.id)) {
       return interaction.reply("❌ Vous n'êtes pas autorisé à utiliser cette commande.");
     }

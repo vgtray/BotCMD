@@ -3,14 +3,14 @@ const { guildId, monthlyChannelId } = require('../config/config');
 const { logCommandStatus, logToChannel } = require('../services/logger');
 const { startHourlyPromoScheduler, fetchVotes, buildVoteEmbed, buildVoteButtonRow } = require('../services/vote');
 
-// Variable pour éviter les exécutions multiples
+
 let isReady = false;
 
 module.exports = {
   name: Events.ClientReady,
   once: true,
   async execute(client) {
-    // Protection contre les exécutions multiples
+
     if (isReady) {
       console.log('⚠️ Tentative de ré-exécution de l\'événement ready ignorée');
       return;
@@ -20,12 +20,12 @@ module.exports = {
     console.log(`✅ Connecté en tant que ${client.user.tag}`);
     logCommandStatus(client);
 
-    // Vérifier si les commandes sont déjà enregistrées
+
     try {
       const existingCommands = await client.application.commands.fetch({ guildId });
       const commandsToRegister = [...client.commands.map(c => c.data)];
       
-      // Comparer les commandes existantes avec celles à enregistrer
+
       const needsUpdate = commandsToRegister.length !== existingCommands.size ||
         commandsToRegister.some(cmd => !existingCommands.find(existing => existing.name === cmd.name));
       
@@ -44,13 +44,13 @@ module.exports = {
       console.error("❌ Erreur lors du déploiement des commandes :", err);
     }
 
-    // Démarrer le scheduler seulement si pas déjà démarré
+
     if (!client.schedulerStarted) {
       startHourlyPromoScheduler(client);
       client.schedulerStarted = true;
     }
 
-    // Classement mensuel automatique avec protection
+
     if (!client.monthlyIntervalStarted) {
       setInterval(async () => {
         const now = new Date();
