@@ -1,6 +1,6 @@
  # BotCMD
 
- BotCMD est un bot Discord de modération et d'utilitaires, adapté aux serveurs GTA/NoLimit.
+ BotCMD est un bot Discord de modération et d'utilitaires, adapté aux serveurs FiveM.
  Ce dépôt contient le code source du bot, un exemple de configuration et la documentation pour l'exécuter et y contribuer.
 
  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
