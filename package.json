@@ -1,0 +1,19 @@
+{
+  "name": "moderia-bot",
+  "version": "1.0.0",
+  "description": "Bot Discord pour Moderia RP",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "node deployCommands.js",
+    "start": "node index.js"
+  },
+  "author": "adam",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2",
+    "rcon-client": "^4.2.5"
+  }
+}
